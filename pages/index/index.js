@@ -1,13 +1,26 @@
 //index.js
-//获取应用实例
 const app = getApp()
 
 Page({
   data: {
     motto: 'Hello World',
-    userInfo: {},
+    userInfo: app.globalData.userInfo,
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    list: [
+      {
+        id: 'tencent_videos',
+        name: '腾讯视频',
+        open: false,
+        pages: ['test1', 'test2', 'test3', 'test4', 'test5'],
+      },
+      {
+        id: 'youku',
+        name: '优酷',
+        open: false,
+        pages: ['test1', 'test2', 'test3', 'test4'],
+      },
+    ],
   },
   //事件处理函数
   bindViewTap: function() {
@@ -20,39 +33,28 @@ Page({
   },
   onLoad: function () {
     console.log('page onLoad')
+    console.log(app.globalData.userInfo)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
     }
   },
   getUserInfo: function(e) {
     console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  },
+  toggleDetail: function(e) {
+    var id = e.currentTarget.id, list = this.data.list
+    for (var i = 0, len = list.length; i < len; ++i) {
+      if (list[i].id == id) {
+        list[i].open = !list[i].open
+      } else {
+        list[i].open = false
+      }
+    }
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      list: list
     })
-  }
+  },
 })
