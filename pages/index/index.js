@@ -1,4 +1,8 @@
 //index.js
+const videos = require('../../services/video.js')
+const util = require('../../utils/util.js')
+const api = require('../../config/api.js')
+
 const app = getApp()
 
 Page({
@@ -12,19 +16,13 @@ Page({
         id: 'tencent_videos',
         name: '腾讯视频',
         open: false,
-        pages: ['test1', 'test2', 'test3', 'test4', 'test5'],
-      },
-      {
-        id: 'youku',
-        name: '优酷',
-        open: false,
-        pages: ['test1', 'test2', 'test3', 'test4'],
+        videos: [],
       },
     ],
   },
-  //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
+      // TODO: fix to user profile
       url: '../logs/logs'
     })
   },
@@ -34,6 +32,7 @@ Page({
   onLoad: function () {
     console.log('page onLoad')
     console.log(app.globalData.userInfo)
+    this.loadData()
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -57,4 +56,13 @@ Page({
       list: list
     })
   },
+  loadData: function() {
+    util.request(api.Videos).then(res => {
+      this.setData({
+        list: res.videos,
+      })
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 })

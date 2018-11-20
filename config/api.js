@@ -1,4 +1,4 @@
-const ApiRootUrl = 'http://127.0.0.1:8360/api/'
+const ApiRootUrl = 'http://localhost:3000/api/v1/'
 
 module.exports = {
   Videos: ApiRootUrl + 'videos',

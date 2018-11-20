@@ -15,7 +15,7 @@ const formatNumber = n => {
 }
 
 /**
- * 外部へrequest
+ * 外部APIへrequest
  */
 const request = (url, data = {}, method = "GET") => {
   return new Promise((resolve, reject) => {
