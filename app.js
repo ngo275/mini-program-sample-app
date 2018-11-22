@@ -1,11 +1,12 @@
 //app.js
 const user = require('./services/user.js')
+const cache = require('./utils/cacheUtil.js')
 
 App({
   onLaunch: function () {
     user.checkLogin().then(res => {
-      this.globalData.userInfo = wx.getStorageSync('userInfo')
-      this.globalData.token = wx.getStorageSync('token')
+      this.globalData.userInfo = cache.get('userInfo')
+      this.globalData.token = cache.get('token')
       console.log('[session] verified')
     }).catch(() => {
       console.log('[session] error')

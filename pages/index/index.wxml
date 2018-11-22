@@ -18,7 +18,7 @@
           <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
             <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
               <block wx:for="{{item.videos}}" wx:for-item="video" wx:key="*this">
-                <navigator url="index" class="weui-cell weui-cell_access">
+                <navigator url="../video/video" class="weui-cell weui-cell_access">
                   <view class="weui-cell__bd">{{video.title}}</view>
                   <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </navigator>

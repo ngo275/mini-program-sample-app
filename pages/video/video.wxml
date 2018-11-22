@@ -1,0 +1,30 @@
+<view hidden="{{tvphide}}">
+  <txv-video 
+    vid="{{vid}}" 
+    width="{{width}}"
+    height="{{height}}"
+    playerid="txv0" 
+    autoplay="{{autoplay}}"
+    controls="{{controls}}"
+    bindstatechange="onStateChange"
+    bindtimeupdate="onTimeUpdate"
+    showProgress="{{showProgress1}}"
+    show-progress="{{false}}"
+    bindfullscreenchange="onFullScreenChange">
+  </txv-video>
+</view>
+<view class="control">
+  <view class="hd">タイトル</view>
+  <view class="p">ここに動画の説明が入ります。</view>
+  <view class="btn" bindtap="changeVertVid">動画切り替え</view>
+  <input type="text" 
+    value="{{changingvid}}" 
+    placeholder="新しいvidを入力してください" 
+    maxlength="11" 
+    debounce-time="300" 
+    bindconfirm="changeVid"
+  ></input>
+  <view class="btn" bindtap="playrate" data-rate="0.8">0.8倍速</view>
+  <view class="btn" bindtap="playrate" data-rate="1">1倍速</view>
+  <view class="btn" bindtap="playrate" data-rate="1.25">1.25倍速</view>
+</view>

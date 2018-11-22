@@ -1,4 +1,5 @@
 const util = require('../utils/util.js')
+const cache = require('../utils/cacheUtil.js')
 const api = require('../config/api.js')
 
 
@@ -14,8 +15,8 @@ const loginByWeixin = () => {
     }).then((data) => {
       // アプリ特有のアクセストークンを渡したいならここで、api requestする
       // ここでは一旦 `code` を渡すようにする
-      wx.setStorageSync('userInfo', data.userInfo)
-      wx.setStorageSync('token', code)
+      cache.set('userInfo', data.userInfo)
+      cache.set('token', code)
       resolve(data)
     }).catch((err) => {
       reject(err)
@@ -28,10 +29,10 @@ const loginByWeixin = () => {
  */
 const checkLogin = () => {
   return new Promise((resolve, reject) => {
-    if (wx.getStorageSync('userInfo') && wx.getStorageSync('token')) {
+    if (cache.get('userInfo') && cache.get('token')) {
       util.checkSession().then(() => {
         console.log('[session] check success')
-        console.log(wx.getStorageSync('userInfo'))
+        console.log(cache.get('userInfo'))
         resolve(true)
       }).catch(() => {
         reject(false)
