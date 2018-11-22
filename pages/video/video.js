@@ -6,7 +6,7 @@ const cache = require('../../utils/cacheUtil.js')
 Page({
   data: {
     tvphide: false,
-    vid: 'l0025mppim4',
+    vid: 'l0025mppim4', // default vid
     changingvid: '',
     controls: !!cache.get('controls'),
     autoplay: true,
@@ -17,11 +17,13 @@ Page({
   },
 
   onLoad: function (options) {
+    this.txvContext = txvContext.getTxvContext('txv0')
+
     this.setData({
+      vid: options.vid,
       controls: !!cache.get('controls'),
       // autoplay: !!cache.get('autoplay')
     })
-    this.txvContext = txvContext.getTxvContext('txv0')
   },
 
   createVideo: function (vid) {
